@@ -1,0 +1,54 @@
+@startuml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName "Microsoft YaHei"
+
+class Note {
+  - id: Long
+  - title: String
+  - content: String
+  - createdAt: Date
+  - updatedAt: Date
+  - tags: Set<Tag>
+  --
+  + Note()
+  + Note(title: String, content: String)
+  + getId(): Long
+  + setId(id: Long): void
+  + getTitle(): String
+  + setTitle(title: String): void
+  + getContent(): String
+  + setContent(content: String): void
+  + getCreatedAt(): Date
+  + getUpdatedAt(): Date
+  + setUpdatedAt(updatedAt: Date): void
+  + getTags(): Set<Tag>
+  + addTag(tag: Tag): void
+  + removeTag(tag: Tag): void
+}
+
+class Tag {
+  - id: Long
+  - name: String
+  --
+  + Tag()
+  + Tag(name: String)
+  + getId(): Long
+  + setId(id: Long): void
+  + getName(): String
+  + setName(name: String): void
+}
+
+Note "1" *-- "*" Tag : tagged with >
+
+Note <|-- TextNote
+class TextNote {
+  - summary: String
+  --
+  + TextNote(title: String, content: String)
+  + TextNote(title: String, content: String, summary: String)
+  + getSummary(): String
+  + setSummary(summary: String): void
+}
+
+@enduml
